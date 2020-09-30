@@ -67,19 +67,21 @@ public class CsvFilterShould {
     public void allow_for_more_than_one_line(){
         String invoiceLine ="1,02/05/2019,1000,810,,12,ACER Laptop,B76430134, ";
         String invoiceLine2 ="2,02/05/2019,1000,810,,12,ACER Laptop,,45777307Q";
+        String invoiceLine3 = "3,02/05/2019,1000,810,,12,ACER Laptop,B76430134,45777307Q";
 
-        List<String> result = new CsvFilter().filter(Arrays.asList(headerLine, invoiceLine, invoiceLine2));
+        List<String> result = new CsvFilter().filter(Arrays.asList(headerLine, invoiceLine, invoiceLine2, invoiceLine3));
         assertEquals(Arrays.asList(headerLine, invoiceLine, invoiceLine2),result);
 
     }
 
     @Test
-    public void delete_all_lines_when_invoice_number_is_repeated(){
+    public void delete_all_lines_with_invoice_number_repetitions(){
         String invoiceLine ="1,02/05/2019,1000,810,,12,ACER Laptop,B76430134, ";
-        String invoiceLine2 ="1,02/05/2019,1000,810,,12,ACER Laptop,B76430134,45777307Q";
+        String invoiceLine2 ="2,02/05/2019,1000,810,,12,ACER Laptop,,45777307Q";
+        String invoiceLine3 ="1,02/05/2019,1000,810,,12,ACER Laptop,B76430134,45777307Q";
 
-        List<String> result = new CsvFilter().filter(Arrays.asList(headerLine, invoiceLine, invoiceLine2));
-        assertEquals(new ArrayList<String>(),result);
+        List<String> result = new CsvFilter().filter(Arrays.asList(headerLine, invoiceLine, invoiceLine2, invoiceLine3));
+        assertEquals(Arrays.asList(headerLine, invoiceLine2),result);
 
     }
 
