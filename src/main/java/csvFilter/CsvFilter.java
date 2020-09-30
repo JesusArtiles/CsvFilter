@@ -1,12 +1,8 @@
 package csvFilter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.locks.Condition;
-import java.util.regex.Pattern;
 
-import static java.util.Objects.isNull;
 
 public class CsvFilter {
     public List<String> filter(List<String> lines){
@@ -19,7 +15,7 @@ public class CsvFilter {
         String ivaField = fields[ivaFieldIndex];
         String igicField = fields[igicFieldIndex];
         String decimalRegex = "\\d+(\\.\\d+)?";
-        Boolean taxFieldsAreMutuallyExclusive = (ivaField.matches(decimalRegex) || igicField.matches(decimalRegex)) && (!(ivaField.matches(decimalRegex) && igicField.matches(decimalRegex)));
+        Boolean taxFieldsAreMutuallyExclusive = (ivaField.matches(decimalRegex) || igicField.matches(decimalRegex)) && (ivaField.isEmpty() || igicField.isEmpty());
         if (taxFieldsAreMutuallyExclusive) {
             result.add(lines.get(1));
         }
