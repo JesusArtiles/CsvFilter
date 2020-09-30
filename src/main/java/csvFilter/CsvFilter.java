@@ -12,11 +12,12 @@ public class CsvFilter {
     private String cifRegex = "^[a-zA-Z]{1}\\d{7}[a-zA-Z0-9]{1}$";
     private String nifRegex = "^\\d{8}[a-zA-Z]{1}$";
 
-    public List<String> filter(List<String> lines){
+    public List<String> filter(List<String> lines) {
         List result = new ArrayList<String>();
-        result.add(lines.get(0));
+        if(invoiceNumberIsRepeated(lines)) return result;
 
-        for(int i = 1; i < lines.size();i++){
+        result.add(lines.get(0));
+        for (int i = 1; i < lines.size(); i++) {
             String invoice = lines.get(i);
             String[] fields = invoice.split(",");
 
@@ -33,8 +34,26 @@ public class CsvFilter {
             }
         }
 
+
         return result;
     }
+
+    private boolean invoiceNumberIsRepeated(List<String> lines) {
+        List<String> invoiceNumbers = new ArrayList<>();
+        Boolean repeated = false;
+
+        for (int i = 1; i < lines.size(); i++) {
+            String invoice = lines.get(i);
+            String[] fields = invoice.split(",");
+            invoiceNumbers.add(fields[0]);
+        }
+
+        for (int i = 0; i < invoiceNumbers.size(); i++) {
+            for (int j = 0; j < invoiceNumbers.size(); j++) {
+                if (i == j) {
+                } else if (invoiceNumbers.get(j).equals(invoiceNumbers.get(i))) repeated = true;
+            }
+        }
+        return repeated;
+    }
 }
-
-

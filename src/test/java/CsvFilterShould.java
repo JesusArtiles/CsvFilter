@@ -73,5 +73,15 @@ public class CsvFilterShould {
 
     }
 
+    @Test
+    public void delete_all_lines_when_invoice_number_is_repeated(){
+        String invoiceLine ="1,02/05/2019,1000,810,,12,ACER Laptop,B76430134, ";
+        String invoiceLine2 ="1,02/05/2019,1000,810,,12,ACER Laptop,B76430134,45777307Q";
+
+        List<String> result = new CsvFilter().filter(Arrays.asList(headerLine, invoiceLine, invoiceLine2));
+        assertEquals(new ArrayList<String>(),result);
+
+    }
+
 
 }
