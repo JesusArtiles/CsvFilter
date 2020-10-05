@@ -12,15 +12,15 @@ public class CsvFilter {
     private String cifRegex = "^[a-zA-Z]{1}\\d{7}[a-zA-Z0-9]{1}$";
     private String nifRegex = "^\\d{8}[a-zA-Z]{1}$";
 
-    public List<String> filter(List<String> lines) {
+    public List<String> apply(List<String> lines) {
         List result = new ArrayList<String>();
         result.add(lines.get(0));
         List<String> repeatedInvoiceNumbers = getRepeatedInvoiceNumbers(lines);
 
         for (int i = 1; i < lines.size(); i++) {
             String invoice = lines.get(i);
-            String[] fields = invoice.split(",");
 
+            String[] fields = invoice.split(",");
             String invoiceNumberField = fields[0];
             String ivaField = fields[4];
             String igicField = fields[5];
