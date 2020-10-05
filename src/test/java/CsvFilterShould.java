@@ -77,7 +77,7 @@ public class CsvFilterShould {
         String invoiceLine2 ="2,02/05/2019,1000,810,,12,ACER Laptop,,45777307Q";
         String invoiceLine3 ="1,02/05/2019,1000,810,,12,ACER Laptop,B76430134,45777307Q";
 
-        List<String> result = new CsvFilter().apply(Arrays.asList(headerLine, invoiceLine, invoiceLine2, invoiceLine3));
+        List<String> result = filter.apply(Arrays.asList(headerLine, invoiceLine, invoiceLine2, invoiceLine3));
         assertThat(result).isEqualTo(Arrays.asList(headerLine, invoiceLine2));
 
     }
